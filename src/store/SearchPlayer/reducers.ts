@@ -8,7 +8,7 @@ import {
 
 interface IDefaultState {
     loading: boolean;
-    player?: PlayerType;
+    player?: PlayerType[];
 }
 
 const defaultState: IDefaultState = {

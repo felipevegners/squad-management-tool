@@ -1,7 +1,7 @@
 import React from 'react';
 
 import * as S from './Header.styles';
-import logo from '../../assets/logo-new.svg';
+import logo from '../../Assets/logo-new.svg';
 import User from '../User/User';
 
 const Header = (): JSX.Element => {

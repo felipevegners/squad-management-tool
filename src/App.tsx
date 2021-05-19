@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 
-import Management from './pages/Management/Management';
-import Home from './pages/Home/Home';
+import Management from './Pages/Management/Management';
+import Home from './Pages/Home/Home';
 
 import ResetSyle from './styles/Reset.styles';
 
