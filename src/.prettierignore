@@ -1,0 +1,43 @@
+# Packages
+servser/package-lock.json
+servser/yarn.lock
+client/package-lock.json
+client/yarn.lock
+
+# Dependencies
+server/node_modules
+client/node_modules
+
+# Build
+server/dist
+client/dist
+
+# Static files
+server/static
+
+# DB Data
+server/data/*
+
+# Readme
+README.md
+
+# TS Buildinfo file
+server/tsconfig.tsbuildinfo
+client/tsconfig.tsbuildinfo
+
+# Logs
+server/npm-debug.log*
+server/logs/
+client/npm-debug.log*
+
+# Test Coverage
+server/coverage/
+client/coverage/
+
+# Test Report
+server/report/
+client/report/
+
+# Cypress
+client/cypress/screenshots
+client/cypress/videos

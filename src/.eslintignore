@@ -1,0 +1,52 @@
+README.md
+
+# Dependencies
+server/node_modules
+client/node_modules
+
+# Build
+server/dist
+client/build
+
+# Static files
+server/static
+
+# Jest Config File
+server/jest.config.js
+
+# Type ORM Config file
+server/ormconfig.js
+
+# Eslint Config File
+server/.eslintrc.js
+client/.eslintrc
+
+# Prettier Config File
+.prettierrc
+
+# Client config
+client/src/**/__tests__/**
+client/src/**/__snapshots__/**
+client/.eslintrc
+client/.gitignore
+client/.stylelintrc
+# Cypress
+client/cypress/screenshots
+client/cypress/videos
+
+# NPM/Yarn
+server/package*
+server/yarn*
+server/tsconfig.json
+client/package*
+client/yarn*
+client/tsconfig.json
+
+# Test Coverage
+server/coverage/
+client/coverage/
+
+# Test Report
+server/report/
+client/report/
+
