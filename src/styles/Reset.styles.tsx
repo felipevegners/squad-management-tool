@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import Colors from './Colors';
 
 const GlobalStyles = createGlobalStyle`
     *,
@@ -21,6 +22,30 @@ const GlobalStyles = createGlobalStyle`
     code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
         monospace;
+    }
+
+    .link {
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    ::-webkit-input-placeholder {
+        /* Edge */
+        color: ${Colors.mediumGray};
+        opacity: 0.6;
+    }
+
+    ::-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: ${Colors.mediumGray};
+        opacity: 0.6;
+    }
+
+    ::placeholder {
+        color: ${Colors.mediumGray};
+        opacity: 0.6;
     }
 `;
 

@@ -14,7 +14,11 @@ export const Button = styled.button`
         ${Colors.buttonGradientA} 0%,
         ${Colors.buttonGradientB} 80%
     );
-    -webkit-box-shadow: 0px 16px 30px 0px rgba(183, 76, 134, 0.5);
-    box-shadow: 0px 6px 16px 0px rgba(183, 76, 134, 0.5);
-    cursor: pointer;
+    transition: box-shadow 0.5s;
+
+    &:hover {
+        -webkit-box-shadow: 0px 16px 30px 0px rgba(183, 76, 134, 0.5);
+        box-shadow: 0px 6px 16px 0px rgba(183, 76, 134, 0.5);
+        cursor: pointer;
+    }
 `;

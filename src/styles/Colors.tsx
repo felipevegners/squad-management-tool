@@ -8,6 +8,7 @@ enum Colors {
     baseLight = '#b74c86',
     purple = '#552d8a',
     gray = '#484848',
+    mediumGray = '#8d8d8d',
     lightGray = '#eeeeee',
     black = '#2b2b2b',
     white = '#ffffff',

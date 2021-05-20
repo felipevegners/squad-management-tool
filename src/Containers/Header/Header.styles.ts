@@ -21,12 +21,10 @@ export const MainContainer = styled.div`
 
 export const Container = styled.div`
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    cursor: pointer;
+    height: 100%;
 `;
 
-export const Logo = styled.a<{ url: string }>`
+export const Logo = styled.div<{ url: string }>`
     position: relative;
     margin-right: 20px;
     background: url('${(props) => props.url}') left center no-repeat;
@@ -39,6 +37,7 @@ export const Logo = styled.a<{ url: string }>`
 export const Title = styled.h1`
     font-size: 20px;
     color: ${Colors.white};
+    text-decoration: none;
 `;
 
 export const LoginArea = styled.div`

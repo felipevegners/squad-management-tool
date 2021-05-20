@@ -10,7 +10,7 @@ interface ICard {
 
 const Card = ({ title, content, children }: ICard): JSX.Element => {
     return (
-        <S.Container>
+        <S.Container className="card">
             <S.Header>
                 <S.Title>{title}</S.Title>
                 {content}
