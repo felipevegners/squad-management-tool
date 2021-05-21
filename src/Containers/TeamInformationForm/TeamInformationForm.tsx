@@ -6,6 +6,7 @@ import * as S from './TeamInformationForm.styles';
 const TeamInformationForm = (): JSX.Element => {
     return (
         <S.MainContainer>
+            <S.Title>Team Information</S.Title>
             <S.StyledForm>
                 <S.FormContainer gridArea="left">
                     <S.FormItem>
@@ -38,7 +39,7 @@ const TeamInformationForm = (): JSX.Element => {
                     <S.FormItem>
                         <S.FormLabel>Team type</S.FormLabel>
                     </S.FormItem>
-                    <S.FormItem>
+                    <S.FormItemRadio>
                         <S.StyledInputRadio
                             type="radio"
                             name="radio-group"
@@ -53,7 +54,7 @@ const TeamInformationForm = (): JSX.Element => {
                             id="fantasy"
                         />
                         <S.FormLabel htmlFor="fantasy">Fantasy</S.FormLabel>
-                    </S.FormItem>
+                    </S.FormItemRadio>
                     <S.FormItem>
                         <S.FormLabel>Tags</S.FormLabel>
                         <TagGenerator />

@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useDebouncedCallback } from 'use-debounce';
 
+import * as S from './SearchPlayer.styles';
+
 import { playerActions } from '../../store/SearchPlayer/actions';
+import PlayersList from '../PlayersList/PlayersList';
 
 const SearchPlayer = (): JSX.Element => {
     const dispatch = useDispatch();
@@ -16,20 +19,22 @@ const SearchPlayer = (): JSX.Element => {
     const handleSearch = useDebouncedCallback((query: string) => {
         if (query.length > 3) {
             console.log('search query --> ', name);
-            // dispatch(playerActions.getPlayer(name));
+            dispatch(playerActions.getPlayer(name));
         }
     }, 500);
 
     return (
-        <div>
-            <input
-                type="text"
-                name=""
-                id=""
-                placeholder="Search your player"
-                onChange={handleChange}
-            />
-        </div>
+        <S.Container>
+            <S.FormItem>
+                <S.FormLabel>Search player</S.FormLabel>
+                <S.StyledInput
+                    type="text"
+                    placeholder="Search your player"
+                    onChange={handleChange}
+                />
+            </S.FormItem>
+            <PlayersList />
+        </S.Container>
     );
 };
 
