@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import Colors from '../../styles/Colors';
 
 export const MainContainer = styled.div`
-    padding: 0px 120px;
-    margin-bottom: 40px;
+    padding: 0px 180px;
+    margin-bottom: 60px;
 `;
 
 export const Title = styled.h3`

@@ -1,38 +1,63 @@
 import React, { useState } from 'react';
-import FieldPosition from '../FieldPosition/FieldPosition';
+
+import positions from '../../utils/positions';
 
 import * as S from './FieldConfig.styles';
+import FormationLine from '../../Containers/FormationLine/FormationLine';
+
+interface IFormation {
+    line: string;
+    players: number;
+}
 
 const FieldConfig = (): JSX.Element => {
-    const [fieldPosition, setFieldPosition] = useState<Record<string, string>>(
-        {}
-    );
+    const [formation, setFormation] = useState<IFormation[]>([]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleDrop = (e: any): void => {
-        e.preventDefault();
-        const data = JSON.parse(e.dataTransfer.getData('player'));
-        const playerPosition = e.target.id;
-        setFieldPosition({
-            ...data,
-            pickedPosition: playerPosition,
-        });
-    };
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleDragOver = (e: any): void => {
-        e.preventDefault();
-    };
+    const handleFormation = (e: any) => {
+        const selectedFormation = e.target.value.split('-');
 
+        let formationConfig: string[];
+
+        if (selectedFormation.length === 4) {
+            formationConfig = ['defense', 'middle1', 'middle2', 'attack'];
+        } else {
+            formationConfig = ['defense', 'middle', 'attack'];
+        }
+        const finalFormation = selectedFormation.map(
+            (players: number, i: number) => ({
+                line: formationConfig[i].toString(),
+                players: players,
+            })
+        );
+        setFormation(finalFormation);
+    };
     return (
-        <S.Container>
-            <S.FieldPosition
-                onDrop={handleDrop}
-                onDragOver={handleDragOver}
-                id="deffense-1"
-            >
-                <FieldPosition photo={fieldPosition.photo} />
-            </S.FieldPosition>
-        </S.Container>
+        <S.MainContainer>
+            <S.FormationSelectContainer>
+                <S.FormationLabel>Formation</S.FormationLabel>
+                <S.FormationSelect onChange={handleFormation}>
+                    <option selected>Select formation</option>
+                    {positions
+                        ? positions.map((position) => (
+                              <option value={position}>{position}</option>
+                          ))
+                        : ''}
+                </S.FormationSelect>
+            </S.FormationSelectContainer>
+
+            <S.Field>
+                <FormationLine players={1} line="goal-keeper" />
+                {formation
+                    ? formation.map((config) => (
+                          <FormationLine
+                              players={config.players}
+                              line={config.line}
+                          />
+                      ))
+                    : ''}
+            </S.Field>
+        </S.MainContainer>
     );
 };
 
