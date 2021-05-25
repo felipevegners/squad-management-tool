@@ -74,4 +74,5 @@ export const NewTagInput = styled.input`
     padding: 8px;
     font-size: 14px;
     color: ${Colors.gray};
+    outline: none;
 `;

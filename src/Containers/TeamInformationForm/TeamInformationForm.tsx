@@ -1,66 +1,131 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import TagGenerator from '../../Components/TagGenerator/TagGenerator';
 
 import * as S from './TeamInformationForm.styles';
 
-const TeamInformationForm = (): JSX.Element => {
+interface INewTeamInfo {
+    teamInfo: {
+        name: string;
+        description: string;
+        website: string;
+        type: string;
+        tags: string[];
+    };
+}
+
+const TeamInformationForm = ({ sendTeamInfo }: any): JSX.Element => {
+    const [newTeamInfo, setNewTeamInfo] = useState({});
+
+    const handleGetTags = (tags: string[]) => {
+        setNewTeamInfo({
+            ...newTeamInfo,
+            tags: tags,
+        });
+    };
+
+    const handleChange = (e: any) => {
+        const { name, value } = e.target;
+        setNewTeamInfo({
+            ...newTeamInfo,
+            [name]: value,
+        });
+    };
+
+    const handleValidation = (e: any) => {
+        const { name, value, pattern } = e.target;
+
+        if (name !== 'description') {
+            if (value === '') {
+                e.target.classList.add('warn');
+            } else if (name === 'website') {
+                if (value.match(pattern)) {
+                    e.target.classList.remove('warn');
+                } else {
+                    e.target.classList.add('warn');
+                }
+            } else {
+                e.target.classList.remove('warn');
+            }
+        }
+    };
+
+    useEffect(() => {
+        sendTeamInfo(newTeamInfo);
+    }, [sendTeamInfo, newTeamInfo]);
+
     return (
         <S.MainContainer>
             <S.Title>Team Information</S.Title>
-            <S.StyledForm>
-                <S.FormContainer gridArea="left">
+            <S.FormContainerRow>
+                <S.FormContainerColumn gridArea="left">
                     <S.FormItem>
-                        <S.FormLabel>Team Name</S.FormLabel>
                         <S.StyledInput
+                            type="text"
                             placeholder="Insert your team name"
-                            name="team-name"
+                            name="name"
+                            onChange={handleChange}
+                            onBlur={handleValidation}
+                            required
                         />
+                        <S.FormLabel>Team Name</S.FormLabel>
+                        <span>Insert a valid name</span>
                     </S.FormItem>
                     <S.FormItem>
-                        <S.FormLabel>Description</S.FormLabel>
                         <S.StyledTextArea
                             placeholder="Insert your team description"
-                            name="team-description"
+                            name="description"
                             rows={8}
+                            onChange={handleChange}
                         />
+                        <S.FormLabel>Description</S.FormLabel>
                     </S.FormItem>
-                </S.FormContainer>
+                </S.FormContainerColumn>
 
-                <S.FormContainer gridArea="right">
+                <S.FormContainerColumn gridArea="right">
                     <S.FormItem>
-                        <S.FormLabel>Team website</S.FormLabel>
                         <S.StyledInput
                             type="url"
                             placeholder="https://www.yourteam.com"
-                            name="team-name"
+                            pattern="https?://.+"
+                            name="website"
+                            onChange={handleChange}
+                            onBlur={handleValidation}
                             required
                         />
+                        <S.FormLabel>Team website</S.FormLabel>
+                        <span>Insert a valid website</span>
                     </S.FormItem>
                     <S.FormItem>
+                        <S.RadioButtonContainer>
+                            <S.StyledInputRadio
+                                type="radio"
+                                name="type"
+                                value="real"
+                                id="real"
+                                onChange={handleChange}
+                                required
+                            />
+                            <S.FormLabel htmlFor="real">Real</S.FormLabel>
+                            <S.StyledInputRadio
+                                type="radio"
+                                name="type"
+                                value="fantasy"
+                                id="fantasy"
+                                onChange={handleChange}
+                                required
+                            />
+                            <S.FormLabel htmlFor="fantasy">Fantasy</S.FormLabel>
+                            <span>Select a team type</span>
+                        </S.RadioButtonContainer>
                         <S.FormLabel>Team type</S.FormLabel>
                     </S.FormItem>
-                    <S.FormItemRadio>
-                        <S.StyledInputRadio
-                            type="radio"
-                            name="radio-group"
-                            value="real"
-                            id="real"
-                        />
-                        <S.FormLabel htmlFor="real">Real</S.FormLabel>
-                        <S.StyledInputRadio
-                            type="radio"
-                            name="radio-group"
-                            value="fantasy"
-                            id="fantasy"
-                        />
-                        <S.FormLabel htmlFor="fantasy">Fantasy</S.FormLabel>
-                    </S.FormItemRadio>
+
                     <S.FormItem>
+                        <TagGenerator getTags={handleGetTags} />
                         <S.FormLabel>Tags</S.FormLabel>
-                        <TagGenerator />
                     </S.FormItem>
-                </S.FormContainer>
-            </S.StyledForm>
+                </S.FormContainerColumn>
+            </S.FormContainerRow>
         </S.MainContainer>
     );
 };

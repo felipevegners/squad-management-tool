@@ -15,25 +15,25 @@ export const Title = styled.h3`
     text-transform: uppercase;
 `;
 
-export const FormContainer = styled.div<{ gridArea: string }>`
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    grid-area: ${(props) => props.gridArea};
-`;
-
-export const StyledForm = styled.form`
+export const FormContainerRow = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 120px;
     grid-template-areas: 'left right';
 `;
 
+export const FormContainerColumn = styled.div<{ gridArea: string }>`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    grid-area: ${(props) => props.gridArea};
+`;
+
 export const FormItem = styled.div`
     position: relative;
     margin-bottom: 32px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
 
     &:last-of-type {
         margin-bottom: 0;
@@ -49,14 +49,53 @@ export const FormLabel = styled.label`
 `;
 
 export const StyledInput = styled.input`
+    position: relative;
     padding: 10px;
     border: 1px solid ${Colors.mediumGray};
     border-radius: 4px;
     color: ${Colors.gray};
     background-color: transparent;
+    outline: none;
 
-    &:focus {
-        box-shadow: unset;
+    & ~ span {
+        position: absolute;
+        bottom: 0px;
+        font-size: 12px;
+        color: ${Colors.red};
+        opacity: 0;
+        transition: all 0.12s;
+    }
+
+    &:focus:empty {
+        border-color: ${Colors.red};
+        & ~ label {
+            color: ${Colors.red};
+        }
+    }
+
+    &:focus:valid {
+        border-color: ${Colors.black};
+        & ~ label {
+            color: ${Colors.black};
+        }
+    }
+
+    &:not(:focus):not(:placeholder-shown):invalid {
+        border-color: ${Colors.red};
+        & ~ label {
+            color: ${Colors.red};
+        }
+    }
+
+    &.warn {
+        border-color: ${Colors.red};
+        & ~ span {
+            bottom: -20px;
+            opacity: 1;
+        }
+        & ~ label {
+            color: ${Colors.red};
+        }
     }
 `;
 
@@ -69,17 +108,11 @@ export const StyledTextArea = styled.textarea`
     color: ${Colors.gray};
     background-color: transparent;
     resize: none;
+    outline: none;
 `;
 
 export const RadioButtonContainer = styled.div`
     margin-right: 36px;
-`;
-
-export const FormItemRadio = styled.div`
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 32px;
 `;
 
 export const StyledInputRadio = styled.input`
@@ -87,9 +120,9 @@ export const StyledInputRadio = styled.input`
     :not(:checked) {
         position: absolute;
         left: -9999px;
-        display: none;
 
         & + label {
+            display: inline-block;
             margin-bottom: 0;
 
             &:before {
@@ -135,11 +168,36 @@ export const StyledInputRadio = styled.input`
         transform: scale(1);
     }
 
+    &:checked {
+        & + label {
+            color: ${Colors.red};
+        }
+    }
+
     & + label {
         position: relative;
         display: inline;
         padding-left: 24px;
         margin-right: 36px;
         font-weight: normal;
+    }
+
+    & ~ span {
+        position: relative;
+        font-size: 12px;
+        left: -15px;
+        color: ${Colors.red};
+        opacity: 0;
+        transition: all 0.12s;
+    }
+
+    &:focus:invalid:not(:checked) {
+        & ~ span {
+            left: 0px;
+            opacity: 1;
+        }
+        & + label:before {
+            border-color: ${Colors.red};
+        }
     }
 `;

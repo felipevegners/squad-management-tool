@@ -12,6 +12,7 @@ const ConfigureSquad = (): JSX.Element => {
                 <FieldConfig />
                 <SearchPlayer />
             </S.Container>
+            <input type="submit" value="ENVIAR" />
         </S.MainContainer>
     );
 };
