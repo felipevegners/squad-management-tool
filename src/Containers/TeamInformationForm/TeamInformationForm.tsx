@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { FormEvent, useCallback, useEffect, useState } from 'react';
 import TagGenerator from '../../Components/TagGenerator/TagGenerator';
 
 import * as S from './TeamInformationForm.styles';
 
-interface INewTeamInfo {
-    teamInfo: {
-        name: string;
-        description: string;
-        website: string;
-        type: string;
-        tags: string[];
-    };
-}
+import { teamActions } from '../../store/CreateTeam/actions';
+import { useDispatch } from 'react-redux';
 
-const TeamInformationForm = ({ sendTeamInfo }: any): JSX.Element => {
+const TeamInformationForm = (): JSX.Element => {
+    const dispatch = useDispatch();
+
     const [newTeamInfo, setNewTeamInfo] = useState({});
+
+    const handleCreateNewTeam = () => {
+        dispatch(teamActions.getTeamInfo(newTeamInfo));
+    };
 
     const handleGetTags = (tags: string[]) => {
         setNewTeamInfo({
@@ -31,7 +30,7 @@ const TeamInformationForm = ({ sendTeamInfo }: any): JSX.Element => {
         });
     };
 
-    const handleValidation = (e: any) => {
+    const handleValidation = useCallback((e: any) => {
         const { name, value, pattern } = e.target;
 
         if (name !== 'description') {
@@ -47,11 +46,7 @@ const TeamInformationForm = ({ sendTeamInfo }: any): JSX.Element => {
                 e.target.classList.remove('warn');
             }
         }
-    };
-
-    useEffect(() => {
-        sendTeamInfo(newTeamInfo);
-    }, [sendTeamInfo, newTeamInfo]);
+    }, []);
 
     return (
         <S.MainContainer>
@@ -126,6 +121,7 @@ const TeamInformationForm = ({ sendTeamInfo }: any): JSX.Element => {
                     </S.FormItem>
                 </S.FormContainerColumn>
             </S.FormContainerRow>
+            <button onClick={handleCreateNewTeam}>ENVIAR INFO</button>
         </S.MainContainer>
     );
 };

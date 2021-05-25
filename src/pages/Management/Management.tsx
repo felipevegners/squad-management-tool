@@ -8,10 +8,6 @@ import * as S from './Management.styles';
 const Management = (): JSX.Element => {
     const [team, setTeam] = useState({});
 
-    const handleTeamInfo = (values: any) => {
-        setTeam(values);
-    };
-
     useEffect(() => {
         console.log('parent team ---> ', team);
     }, [team]);
@@ -24,7 +20,7 @@ const Management = (): JSX.Element => {
         <S.Container>
             <Card title="Create your team" content="">
                 <form onSubmit={handleSubmit}>
-                    <TeamInformationForm sendTeamInfo={handleTeamInfo} />
+                    <TeamInformationForm />
                     <ConfigureSquad />
                 </form>
             </Card>

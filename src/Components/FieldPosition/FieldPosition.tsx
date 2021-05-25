@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 
 import * as S from './FieldPosition.styles';
 
-const FieldPosition = ({
-    initials,
-    photo,
-    name,
-    age,
-    position,
-}: any): JSX.Element => {
-    const [lineConfig, setLineConfig] = useState<Record<string, string>>({});
+const FieldPosition = ({ position }: any): JSX.Element => {
+    const [positionConfig, setPositionConfig] = useState<Record<string, any>>(
+        {}
+    );
     const [isOccupied, setOccupied] = useState<boolean>(false);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -20,11 +16,12 @@ const FieldPosition = ({
         const playerPosition = e.target.id;
         setOccupied(true);
 
-        setLineConfig({
+        setPositionConfig({
             ...data,
             pickedPosition: playerPosition,
         });
     };
+
     const handleDragOver = (e: React.DragEvent<HTMLElement>): void => {
         e.preventDefault();
     };
@@ -33,7 +30,7 @@ const FieldPosition = ({
             onDrop={handleDrop}
             onDragOver={handleDragOver}
             className={`${isOccupied ? 'occupied' : 'empty'}`}
-            photo={lineConfig.photo}
+            photo={positionConfig.photo}
             id={position}
         />
     );

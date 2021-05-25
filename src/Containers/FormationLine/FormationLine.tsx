@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import FieldPosition from '../../Components/FieldPosition/FieldPosition';
 
 import * as S from './FormationLine.styles';
@@ -16,7 +16,7 @@ const FormationLine = ({ line, players }: IFormationLine): JSX.Element => {
         for (let i = 0; i < num; i++) {
             countPosition++;
             linePlayers.push(
-                <FieldPosition position={`${line}-${countPosition}`} />
+                <FieldPosition key={i} position={`${line}-${countPosition}`} />
             );
         }
         return linePlayers;
