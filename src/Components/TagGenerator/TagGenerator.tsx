@@ -1,50 +1,56 @@
-import React, { useState } from 'react';
+import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 
 import * as S from './TagGenerator.styles';
 
-interface IGetTags {
-    getTags(params: string[]): void;
-}
-
-const TagGenerator = ({ getTags }: IGetTags): JSX.Element => {
+const TagGenerator = (): JSX.Element => {
     const [tag, setTag] = useState<string[]>([]);
     const [newTag, setNewTag] = useState('');
     const [tagWarn, setTagWarn] = useState(false);
+    const [tagWarnExists, setTagWarnExists] = useState(false);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleKeyDown = (e: any) => {
-        // check if the inputed tag text have spaces or is empty
-        // show warn or set the new tag
-        if (e.code === 'Enter') {
+    const handleKeyDown = (e: any): void => {
+        e.stopPropagation();
+        const { key } = e;
+        const { value } = e.target;
+        if (
+            key === 'Enter' &&
+            value.length > 1 &&
+            value !== '' &&
+            !/\s/.test(newTag)
+        ) {
             e.preventDefault();
-        }
-        if (newTag.length > 0 && e.code === 'Enter') {
-            e.preventDefault();
-            if (/\s/.test(newTag)) {
-                setTagWarn(true);
-                setTimeout(() => {
-                    setTagWarn(false);
-                }, 5000);
+            if (tag.indexOf(newTag) === -1) {
+                setTag([...tag, newTag]);
                 e.target.value = '';
             } else {
-                setTag([...tag, newTag]);
-                setTagWarn(false);
-                setNewTag('');
-                e.target.value = '';
-                // passing tags to parent (form)
-                getTags([...tag, newTag]);
+                e.preventDefault();
+                setTagWarn(true);
+                setTagWarnExists(true);
+                setTimeout(() => {
+                    setTagWarn(false);
+                    setTagWarnExists(false);
+                }, 5000);
+                console.log('tag exists');
             }
+        } else if (key === 'Enter') {
+            e.preventDefault();
+            setTagWarn(true);
+            setTimeout(() => {
+                setTagWarn(false);
+            }, 5000);
+            e.target.value = '';
+            console.log('invalid tag format');
         }
     };
 
-    const handChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setNewTag(e.target.value);
-    };
+    useEffect(() => {
+        console.log(tag);
+    }, [tag]);
 
     const handleDeleteTag = (tagToRemove: string): void => {
         const tags = tag.filter((tag) => tag !== tagToRemove);
         setTag(tags);
-        getTags(tags);
     };
 
     const handleInputFocus = () => {
@@ -55,6 +61,11 @@ const TagGenerator = ({ getTags }: IGetTags): JSX.Element => {
         <S.Container
             className={tagWarn ? 'tag-warn' : ''}
             onClick={handleInputFocus}
+            data-content={
+                tagWarnExists
+                    ? 'Tag already inserted. Try a new tag!'
+                    : 'Invalid Tag format'
+            }
         >
             {tag.length
                 ? tag.map((tag, i) => (
@@ -67,7 +78,7 @@ const TagGenerator = ({ getTags }: IGetTags): JSX.Element => {
             <S.NewTagInput
                 type="text"
                 onKeyDown={handleKeyDown}
-                onChange={handChange}
+                onChange={(e) => setNewTag(e.target.value)}
                 size={5}
                 id="inputTag"
             />

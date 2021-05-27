@@ -15,13 +15,6 @@ const TeamInformationForm = (): JSX.Element => {
         dispatch(teamActions.getTeamInfo(newTeamInfo));
     };
 
-    const handleGetTags = (tags: string[]) => {
-        setNewTeamInfo({
-            ...newTeamInfo,
-            tags: tags,
-        });
-    };
-
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setNewTeamInfo({
@@ -116,7 +109,7 @@ const TeamInformationForm = (): JSX.Element => {
                     </S.FormItem>
 
                     <S.FormItem>
-                        <TagGenerator getTags={handleGetTags} />
+                        <TagGenerator />
                         <S.FormLabel>Tags</S.FormLabel>
                     </S.FormItem>
                 </S.FormContainerColumn>

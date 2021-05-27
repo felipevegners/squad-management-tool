@@ -22,8 +22,11 @@ const PlayerItem = ({
     photo,
 }: IPlayerData): JSX.Element => {
     const handleDrag = (e: React.DragEvent<HTMLElement>): void => {
-        const initials =
-            firstName.slice(0, 1) + lastName.slice(0, 1).toUpperCase();
+        const names = name.split(' ');
+        let initials = name[0].slice(0, 1).toUpperCase();
+        if (names.length > 1) {
+            initials += names[names.length - 1].slice(0, 1).toUpperCase();
+        }
         const playerData = {
             id: id,
             name: name,

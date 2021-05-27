@@ -17,7 +17,7 @@ export const Container = styled.div`
     background-color: ${Colors.white};
 
     &:before {
-        content: 'Invalid tag format';
+        content: attr(data-content);
         position: absolute;
         bottom: -13px;
         left: 6px;
