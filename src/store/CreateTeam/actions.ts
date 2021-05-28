@@ -9,7 +9,7 @@ import {
 
 const getTeamInfo =
     (newTeam: any) =>
-    (dispatch: Dispatch<CreateTeamDispathTypes>): any => {
+    (dispatch: Dispatch<CreateTeamDispathTypes>): void => {
         dispatch({
             type: TEAM_INFO_LOADING,
         });

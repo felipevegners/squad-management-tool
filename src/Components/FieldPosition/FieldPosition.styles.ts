@@ -35,6 +35,7 @@ export const Position = styled.div<{ photo: string }>`
             border-radius: 100%;
             border: 2px dotted ${Colors.white};
             opacity: 0.6;
+            animation: rotation 6s infinite linear;
         }
     }
     &.occupied {
@@ -57,6 +58,15 @@ export const Position = styled.div<{ photo: string }>`
             border-radius: 100%;
             border: 2px dotted ${Colors.white};
             opacity: 0.6;
+        }
+    }
+
+    @keyframes rotation {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(359deg);
         }
     }
 `;

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import * as S from './FieldPosition.styles';
 
-const FieldPosition = ({ position }: any): JSX.Element => {
+const FieldPosition = ({ position, sendPlayer }: any): JSX.Element => {
     const [positionConfig, setPositionConfig] = useState<Record<string, any>>(
         {}
     );
@@ -16,7 +16,9 @@ const FieldPosition = ({ position }: any): JSX.Element => {
         const playerPosition = e.target.id;
         setOccupied(true);
 
-        setPositionConfig({
+        setPositionConfig(data);
+
+        sendPlayer({
             ...data,
             pickedPosition: playerPosition,
         });

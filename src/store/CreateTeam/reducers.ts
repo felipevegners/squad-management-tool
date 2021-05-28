@@ -1,11 +1,12 @@
-import { idText } from 'typescript';
 import {
     CreateTeamDispathTypes,
     ITeamInfo,
     TEAM_INFO_LOADING,
     TEAM_INFO_FAIL,
     TEAM_INFO_SUCCESS,
+    TEAM_FORMATION_SUCCESS,
 } from './types';
+import { addConfiguration } from './utils';
 
 interface IDefaultState {
     id?: number;
