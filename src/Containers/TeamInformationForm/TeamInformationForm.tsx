@@ -1,20 +1,17 @@
-import React, { FormEvent, useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import TagGenerator from '../../Components/TagGenerator/TagGenerator';
 
 import * as S from './TeamInformationForm.styles';
 
-import { teamActions } from '../../store/CreateTeam/actions';
-import { useDispatch } from 'react-redux';
-
-const TeamInformationForm = (): JSX.Element => {
-    const dispatch = useDispatch();
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const TeamInformationForm = ({ sendData }: any): JSX.Element => {
     const [newTeamInfo, setNewTeamInfo] = useState({});
 
-    const handleCreateNewTeam = () => {
-        dispatch(teamActions.getTeamInfo(newTeamInfo));
-    };
+    useEffect(() => {
+        sendData(newTeamInfo);
+    });
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleChange = (e: any) => {
         const { name, value } = e.target;
         setNewTeamInfo({
@@ -23,6 +20,7 @@ const TeamInformationForm = (): JSX.Element => {
         });
     };
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleValidation = useCallback((e: any) => {
         const { name, value, pattern } = e.target;
 
@@ -114,7 +112,6 @@ const TeamInformationForm = (): JSX.Element => {
                     </S.FormItem>
                 </S.FormContainerColumn>
             </S.FormContainerRow>
-            <button onClick={handleCreateNewTeam}>ENVIAR INFO</button>
         </S.MainContainer>
     );
 };
