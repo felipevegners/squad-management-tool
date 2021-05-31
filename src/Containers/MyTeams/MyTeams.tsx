@@ -20,7 +20,14 @@ const MyTeams = (): JSX.Element => {
                 title="My Teams"
                 content={
                     <Link to="/management">
-                        <Button>+</Button>
+                        <Button
+                            width="40px"
+                            height="40px"
+                            borderRad="12px"
+                            fontSize="30px"
+                        >
+                            +
+                        </Button>
                     </Link>
                 }
             >

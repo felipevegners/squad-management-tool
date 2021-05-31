@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import TeamService from '../Services/Team.services';
 
 import {
     CreateTeamDispathTypes,
@@ -26,6 +27,18 @@ const createNewTeam =
         }
     };
 
+const getTeamToEdit =
+    (id: string) => async (dispatch: Dispatch<CreateTeamDispathTypes>) => {
+        try {
+            const res = await TeamService.getTeamToEdit(id);
+            console.log('res ---> ', res);
+            // return Promise.resolve(res.data);
+        } catch (err) {
+            return Promise.reject(err);
+        }
+    };
+
 export const teamActions = {
     createNewTeam,
+    getTeamToEdit,
 };

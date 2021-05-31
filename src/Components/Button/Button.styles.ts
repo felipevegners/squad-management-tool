@@ -1,13 +1,20 @@
 import styled from 'styled-components';
 import Colors from '../../styles/Colors';
 
-export const Button = styled.button`
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
+export const Button = styled.button<{
+    marginTop?: string;
+    width?: string;
+    height?: string;
+    borderRad?: string;
+    fontSize?: string;
+}>`
+    margin-top: ${(props) => props.marginTop};
+    width: ${(props) => props.width};
+    height: ${(props) => props.height};
+    border-radius: ${(props) => props.borderRad};
     border: none;
     color: ${Colors.white};
-    font-size: 30px;
+    font-size: ${(props) => props.fontSize};
     background: ${Colors.gradientColorA};
     background: linear-gradient(
         180deg,
@@ -20,5 +27,6 @@ export const Button = styled.button`
         -webkit-box-shadow: 0px 16px 30px 0px rgba(183, 76, 134, 0.5);
         box-shadow: 0px 6px 16px 0px rgba(183, 76, 134, 0.5);
         cursor: pointer;
+        border: 1px solid ${Colors.red};
     }
 `;

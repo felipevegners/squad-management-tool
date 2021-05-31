@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { buildPlayers } from '../../helpers';
 
 import positions from '../../helpers/data/positions';
@@ -16,14 +16,27 @@ interface IFormation {
     ];
 }
 
-const FieldConfig = ({ sendConfig }: any) => {
+interface IGetConfig {
+    getConfig(params: any): void;
+    config: any;
+    lines: any;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
+    const initialState = () => {
+        if (config && lines) {
+            return {
+                configuration: config,
+                lines: lines,
+            };
+        }
+    };
     const [fieldConfig, setFieldConfig] = useState<IFormation[]>([]);
     const [finalConfig, setFinalConfig] = useState<Record<string, any>>({});
-    const [newConfig, setNewConfig] = useState<Record<string, any>>({});
+    const [editConfig, setEditConfig] = useState(initialState());
 
-    useEffect(() => {
-        sendConfig(finalConfig);
-    });
+    console.log('final config --->', finalConfig);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleDrop = (e: any): void => {
@@ -42,10 +55,10 @@ const FieldConfig = ({ sendConfig }: any) => {
                 obj.players[idx].empty = false;
                 obj.players[idx].initials = data.initials;
                 obj.players[idx].photo = data.photo;
-                setNewConfig([{ ...newConfig, ...obj }]);
             }
         }
         setFinalConfig({ ...finalConfig, lines: fieldConfig });
+        getConfig({ ...finalConfig, lines: fieldConfig });
     };
 
     const handleDragOver = (e: React.DragEvent<HTMLElement>): void => {
@@ -77,15 +90,23 @@ const FieldConfig = ({ sendConfig }: any) => {
                 },
             ],
         });
+        setEditConfig({ configuration: e.target.value, lines: finalLine });
         setFieldConfig(finalLine);
         setFinalConfig({ ...finalConfig, configuration: e.target.value });
+        getConfig({
+            configuration: e.target.value,
+            lines: finalLine,
+        });
     };
 
     return (
         <S.MainContainer>
             <S.FormationSelectContainer>
                 <S.FormationLabel>Formation</S.FormationLabel>
-                <S.FormationSelect onChange={handleFormation}>
+                <S.FormationSelect
+                    onChange={handleFormation}
+                    value={finalConfig.configuration}
+                >
                     <option>Select formation</option>
                     {positions
                         ? positions.map((position, i) => (
@@ -97,22 +118,39 @@ const FieldConfig = ({ sendConfig }: any) => {
                 </S.FormationSelect>
             </S.FormationSelectContainer>
             <S.Field>
-                {fieldConfig.map((config, i) => (
-                    <S.LineContainer key={i}>
-                        {config.players.map((player: any, i) => (
-                            <S.Position
-                                key={i}
-                                onDrop={handleDrop}
-                                onDragOver={handleDragOver}
-                                className={`${
-                                    player.empty ? 'empty' : 'occupied'
-                                }`}
-                                photo={player.photo ? player.photo : ''}
-                                id={player.position}
-                            />
-                        ))}
-                    </S.LineContainer>
-                ))}
+                {editConfig
+                    ? editConfig.lines.map((config: any, i: number) => (
+                          <S.LineContainer key={i}>
+                              {config.players.map((player: any, i: number) => (
+                                  <S.Position
+                                      key={i}
+                                      onDrop={handleDrop}
+                                      onDragOver={handleDragOver}
+                                      className={`${
+                                          player.empty ? 'empty' : 'occupied'
+                                      }`}
+                                      photo={player.photo ? player.photo : ''}
+                                      id={player.position}
+                                  />
+                              ))}
+                          </S.LineContainer>
+                      ))
+                    : fieldConfig.map((config: any, i: number) => (
+                          <S.LineContainer key={i}>
+                              {config.players.map((player: any, i: number) => (
+                                  <S.Position
+                                      key={i}
+                                      onDrop={handleDrop}
+                                      onDragOver={handleDragOver}
+                                      className={`${
+                                          player.empty ? 'empty' : 'occupied'
+                                      }`}
+                                      photo={player.photo ? player.photo : ''}
+                                      id={player.position}
+                                  />
+                              ))}
+                          </S.LineContainer>
+                      ))}
             </S.Field>
         </S.MainContainer>
     );

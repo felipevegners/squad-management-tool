@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import Colors from '../../styles/Colors';
 
 export const MainContainer = styled.div`
-    padding: 0px 180px;
+    padding: 60px 180px;
     margin-bottom: 60px;
 `;
 
 export const Title = styled.h3`
-    margin-bottom: 40px;
+    margin: 40px auto;
     font-size: 14px;
     color: ${Colors.mediumGray};
     text-align: center;
@@ -17,6 +17,7 @@ export const Title = styled.h3`
 
 export const FormContainerRow = styled.div`
     display: grid;
+    padding: 40px 0;
     grid-template-columns: 1fr 1fr;
     gap: 120px;
     grid-template-areas: 'left right';

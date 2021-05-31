@@ -1,13 +1,14 @@
-import React, { InputHTMLAttributes, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import * as S from './TagGenerator.styles';
 
 interface IGetTags {
     getTags(params: string[]): void;
+    tags: string[];
 }
 
-const TagGenerator = ({ getTags }: IGetTags): JSX.Element => {
-    const [tag, setTag] = useState<string[]>([]);
+const TagGenerator = ({ getTags, tags }: IGetTags): JSX.Element => {
+    const [tag, setTag] = useState<string[]>(tags);
     const [newTag, setNewTag] = useState('');
     const [tagWarn, setTagWarn] = useState(false);
     const [tagWarnExists, setTagWarnExists] = useState(false);

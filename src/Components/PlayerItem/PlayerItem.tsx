@@ -15,8 +15,6 @@ interface IPlayerData {
 const PlayerItem = ({
     id,
     name,
-    firstName,
-    lastName,
     age,
     nationality,
     photo,

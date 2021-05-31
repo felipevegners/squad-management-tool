@@ -14,28 +14,8 @@ export interface ITeamInfo {
     website: string;
     type: string;
     tags: string[];
-    configuration: ITeamConfig;
-}
-
-// TEAM CONFIGURATION TYPES
-export interface ITeamConfig {
-    actualFormation: string; // 4-4-2
-    lines: [
-        {
-            line: string; // defense
-            players: [
-                {
-                    id: string;
-                    name: string;
-                    age: number;
-                    nationality: string;
-                    initials: string;
-                    photo: string;
-                    pickedPosition: string;
-                }
-            ];
-        }
-    ];
+    lines: any[];
+    configuration: string;
 }
 
 export interface ITeamInfoLoading {
