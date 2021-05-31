@@ -4,12 +4,12 @@ import SearchPlayer from '../../Components/SearchPlayer/SearchPlayer';
 
 import * as S from './ConfigureSquad.styles';
 
-const ConfigureSquad = (): JSX.Element => {
+const ConfigureSquad = ({ sendConfig }: any): JSX.Element => {
     return (
         <S.MainContainer>
             <S.Title>Configure Squad</S.Title>
             <S.Container>
-                <FieldConfig />
+                <FieldConfig sendConfig={sendConfig} />
                 <SearchPlayer />
             </S.Container>
             <input type="submit" value="ENVIAR" />

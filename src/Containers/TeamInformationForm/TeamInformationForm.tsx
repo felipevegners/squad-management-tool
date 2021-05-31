@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import TagGenerator from '../../Components/TagGenerator/TagGenerator';
 
 import * as S from './TeamInformationForm.styles';
@@ -38,6 +38,13 @@ const TeamInformationForm = ({ sendData }: any): JSX.Element => {
             }
         }
     }, []);
+
+    const handleGetTags = (tags: string[]) => {
+        setNewTeamInfo({
+            ...newTeamInfo,
+            tags: tags,
+        });
+    };
 
     return (
         <S.MainContainer>
@@ -107,7 +114,7 @@ const TeamInformationForm = ({ sendData }: any): JSX.Element => {
                     </S.FormItem>
 
                     <S.FormItem>
-                        <TagGenerator />
+                        <TagGenerator getTags={handleGetTags} />
                         <S.FormLabel>Tags</S.FormLabel>
                     </S.FormItem>
                 </S.FormContainerColumn>

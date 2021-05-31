@@ -16,13 +16,14 @@ interface IFormation {
     ];
 }
 
-const FieldConfig = ({ sendConfig }: any): JSX.Element => {
+const FieldConfig = ({ sendConfig }: any) => {
     const [fieldConfig, setFieldConfig] = useState<IFormation[]>([]);
+    const [finalConfig, setFinalConfig] = useState<Record<string, any>>({});
     const [newConfig, setNewConfig] = useState<Record<string, any>>({});
 
-    // useEffect(() => {
-    //     sendConfig(fieldConfig);
-    // });
+    useEffect(() => {
+        sendConfig(finalConfig);
+    });
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleDrop = (e: any): void => {
@@ -44,6 +45,7 @@ const FieldConfig = ({ sendConfig }: any): JSX.Element => {
                 setNewConfig([{ ...newConfig, ...obj }]);
             }
         }
+        setFinalConfig({ ...finalConfig, lines: fieldConfig });
     };
 
     const handleDragOver = (e: React.DragEvent<HTMLElement>): void => {
@@ -76,6 +78,7 @@ const FieldConfig = ({ sendConfig }: any): JSX.Element => {
             ],
         });
         setFieldConfig(finalLine);
+        setFinalConfig({ ...finalConfig, configuration: e.target.value });
     };
 
     return (
@@ -93,7 +96,6 @@ const FieldConfig = ({ sendConfig }: any): JSX.Element => {
                         : ''}
                 </S.FormationSelect>
             </S.FormationSelectContainer>
-
             <S.Field>
                 {fieldConfig.map((config, i) => (
                     <S.LineContainer key={i}>

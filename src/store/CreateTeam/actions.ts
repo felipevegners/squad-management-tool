@@ -7,7 +7,7 @@ import {
     TEAM_INFO_SUCCESS,
 } from './types';
 
-const getTeamInfo =
+const createNewTeam =
     (newTeam: any) =>
     (dispatch: Dispatch<CreateTeamDispathTypes>): void => {
         dispatch({
@@ -27,5 +27,5 @@ const getTeamInfo =
     };
 
 export const teamActions = {
-    getTeamInfo,
+    createNewTeam,
 };

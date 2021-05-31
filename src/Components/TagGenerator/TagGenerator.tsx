@@ -2,7 +2,11 @@ import React, { InputHTMLAttributes, useEffect, useState } from 'react';
 
 import * as S from './TagGenerator.styles';
 
-const TagGenerator = (): JSX.Element => {
+interface IGetTags {
+    getTags(params: string[]): void;
+}
+
+const TagGenerator = ({ getTags }: IGetTags): JSX.Element => {
     const [tag, setTag] = useState<string[]>([]);
     const [newTag, setNewTag] = useState('');
     const [tagWarn, setTagWarn] = useState(false);
@@ -22,6 +26,8 @@ const TagGenerator = (): JSX.Element => {
             e.preventDefault();
             if (tag.indexOf(newTag) === -1) {
                 setTag([...tag, newTag]);
+                // passing tags to parent (form)
+                getTags([...tag, newTag]);
                 e.target.value = '';
             } else {
                 e.preventDefault();
@@ -31,7 +37,6 @@ const TagGenerator = (): JSX.Element => {
                     setTagWarn(false);
                     setTagWarnExists(false);
                 }, 5000);
-                console.log('tag exists');
             }
         } else if (key === 'Enter') {
             e.preventDefault();
@@ -40,13 +45,8 @@ const TagGenerator = (): JSX.Element => {
                 setTagWarn(false);
             }, 5000);
             e.target.value = '';
-            console.log('invalid tag format');
         }
     };
-
-    useEffect(() => {
-        console.log(tag);
-    }, [tag]);
 
     const handleDeleteTag = (tagToRemove: string): void => {
         const tags = tag.filter((tag) => tag !== tagToRemove);
