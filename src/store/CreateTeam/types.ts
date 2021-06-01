@@ -1,20 +1,20 @@
+import { IFormation } from '../../Components/FieldConfig/types';
+
 export const TEAM_INFO_LOADING = 'TEAM_INFO_LOADING';
 export const TEAM_INFO_SUCCESS = 'TEAM_INFO_SUCCESS';
 export const TEAM_INFO_FAIL = 'TEAM_INFO_FAIL';
-export const TEAM_CONFIG_LOADING = 'TEAM_CONFIG_LOADING';
-export const TEAM_CONFIG_SUCCESS = 'TEAM_CONFIG_SUCCESS';
-export const TEAM_CONFIG_FAIL = 'TEAM_CONFIG_FAIL';
-export const TEAM_FORMATION_SUCCESS = 'TEAM_FORMATION_SUCCESS';
+export const TEAM_INFO_UPDATE_LOADING = 'TEAM_INFO_UPDATE_LOADING';
+export const TEAM_INFO_UPDATE_SUCCESS = 'TEAM_INFO_UPDATE_SUCCESS';
 
 // TEAM INFORMATION TYPES
 export interface ITeamInfo {
-    id: number;
+    id?: number;
     name: string;
     description: string;
     website: string;
     type: string;
     tags: string[];
-    lines: any[];
+    lines: IFormation[];
     configuration: string;
 }
 
@@ -29,8 +29,18 @@ export interface ITeamInfoSuccess {
     type: typeof TEAM_INFO_SUCCESS;
     payload: ITeamInfo;
 }
+export interface ITeamInfoUptadeLoading {
+    type: typeof TEAM_INFO_UPDATE_LOADING;
+}
+
+export interface ITeamInfoUptadeSuccess {
+    type: typeof TEAM_INFO_UPDATE_SUCCESS;
+    payload: ITeamInfo;
+}
 
 export type CreateTeamDispathTypes =
     | ITeamInfoLoading
     | ITeamInfoFail
-    | ITeamInfoSuccess;
+    | ITeamInfoSuccess
+    | ITeamInfoUptadeLoading
+    | ITeamInfoUptadeSuccess;

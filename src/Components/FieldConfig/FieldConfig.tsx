@@ -5,22 +5,7 @@ import { buildPlayers } from '../../helpers';
 import positions from '../../helpers/data/positions';
 
 import * as S from './FieldConfig.styles';
-interface IFormation {
-    players: [
-        {
-            position: string;
-            empty: boolean;
-            initials: string;
-            photo: string;
-        }
-    ];
-}
-
-interface IGetConfig {
-    getConfig(params: any): void;
-    config: any;
-    lines: any;
-}
+import { IFormation, IGetConfig } from './types';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
@@ -105,7 +90,7 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
                 <S.FormationLabel>Formation</S.FormationLabel>
                 <S.FormationSelect
                     onChange={handleFormation}
-                    value={finalConfig.configuration}
+                    value={editConfig?.configuration}
                 >
                     <option>Select formation</option>
                     {positions

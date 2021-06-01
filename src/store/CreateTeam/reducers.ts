@@ -4,9 +4,10 @@ import {
     TEAM_INFO_LOADING,
     TEAM_INFO_FAIL,
     TEAM_INFO_SUCCESS,
-    TEAM_FORMATION_SUCCESS,
+    TEAM_INFO_UPDATE_LOADING,
+    TEAM_INFO_UPDATE_SUCCESS,
 } from './types';
-import { addConfiguration } from './utils';
+import { updateTeam } from './utils';
 
 interface IDefaultState {
     id?: number;
@@ -45,6 +46,16 @@ const teamInfoReducer = (
                         id: state.teams.length,
                     },
                 ],
+            };
+        case TEAM_INFO_UPDATE_LOADING:
+            return {
+                loading: true,
+                teams: [...state.teams],
+            };
+        case TEAM_INFO_UPDATE_SUCCESS:
+            return {
+                loading: false,
+                teams: updateTeam(state.teams, action.payload),
             };
         default:
             return state;

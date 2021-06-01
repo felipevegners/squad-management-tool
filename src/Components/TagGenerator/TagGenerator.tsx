@@ -52,6 +52,8 @@ const TagGenerator = ({ getTags, tags }: IGetTags): JSX.Element => {
     const handleDeleteTag = (tagToRemove: string): void => {
         const tags = tag.filter((tag) => tag !== tagToRemove);
         setTag(tags);
+        // passing tags to parent (form)
+        getTags(tags);
     };
 
     const handleInputFocus = () => {

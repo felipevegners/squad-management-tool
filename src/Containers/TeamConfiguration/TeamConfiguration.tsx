@@ -1,6 +1,6 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps, useParams } from 'react-router-dom';
+import { RouteComponentProps, useParams, useHistory } from 'react-router-dom';
 import Card from '../../Components/Card/Card';
 import { Button } from '../../Components/Button/Button.styles';
 import FieldConfig from '../../Components/FieldConfig/FieldConfig';
@@ -17,18 +17,16 @@ interface RouteParams {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface Management extends RouteComponentProps<RouteParams> {}
+interface TeamConfiguration extends RouteComponentProps<RouteParams> {}
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const TeamConfiguration: React.FC<Management> = () => {
+const TeamConfiguration: React.FC<TeamConfiguration> = () => {
+    const history = useHistory();
     const dispatch = useDispatch();
     const params = useParams<RouteParams>();
     const teamsState = useSelector((state: rootStore) => state.teams);
 
     const id = parseInt(params.id);
     const { teams } = teamsState;
-
-    console.log('edit ==>', teams[id]);
 
     const initialState = () => {
         if (teams && teams[id]) {
@@ -48,14 +46,23 @@ const TeamConfiguration: React.FC<Management> = () => {
 
     const [teamConfig, setTeamConfig] = useState(initialState());
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(teamActions.createNewTeam({ ...teamConfig }));
+        if (params.id) {
+            dispatch(teamActions.updateTeam(teamConfig));
+            setTimeout(() => {
+                history.push('/');
+            }, 1600);
+        } else {
+            dispatch(teamActions.createNewTeam({ ...teamConfig }));
+
+            setTimeout(() => {
+                history.push('/');
+            }, 1600);
+        }
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleChange = (e: any) => {
+    const handleChange = (e) => {
         const { name, value } = e.target;
         setTeamConfig({
             ...teamConfig,
@@ -63,8 +70,7 @@ const TeamConfiguration: React.FC<Management> = () => {
         });
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleValidation = useCallback((e: any) => {
+    const handleValidation = useCallback((e) => {
         const { name, value, pattern } = e.target;
 
         if (name !== 'description') {
@@ -82,16 +88,14 @@ const TeamConfiguration: React.FC<Management> = () => {
         }
     }, []);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleGetTags = (tags: any) => {
+    const handleGetTags = (tags) => {
         setTeamConfig({
             ...teamConfig,
             tags: tags,
         });
     };
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const handleGetConfig = (config: any) => {
+    const handleGetConfig = (config) => {
         setTeamConfig({
             ...teamConfig,
             configuration: config.configuration,

@@ -1,15 +1,17 @@
 import { Dispatch } from 'redux';
-import TeamService from '../Services/Team.services';
 
 import {
     CreateTeamDispathTypes,
     TEAM_INFO_LOADING,
     TEAM_INFO_FAIL,
     TEAM_INFO_SUCCESS,
+    TEAM_INFO_UPDATE_LOADING,
+    TEAM_INFO_UPDATE_SUCCESS,
+    ITeamInfo,
 } from './types';
 
 const createNewTeam =
-    (newTeam: any) =>
+    (newTeam: ITeamInfo) =>
     (dispatch: Dispatch<CreateTeamDispathTypes>): void => {
         dispatch({
             type: TEAM_INFO_LOADING,
@@ -26,19 +28,26 @@ const createNewTeam =
             });
         }
     };
+const updateTeam =
+    (teamToEdit: ITeamInfo) =>
+    (dispatch: Dispatch<CreateTeamDispathTypes>): void => {
+        dispatch({
+            type: TEAM_INFO_UPDATE_LOADING,
+        });
 
-const getTeamToEdit =
-    (id: string) => async (dispatch: Dispatch<CreateTeamDispathTypes>) => {
         try {
-            const res = await TeamService.getTeamToEdit(id);
-            console.log('res ---> ', res);
-            // return Promise.resolve(res.data);
-        } catch (err) {
-            return Promise.reject(err);
+            dispatch({
+                type: TEAM_INFO_UPDATE_SUCCESS,
+                payload: teamToEdit,
+            });
+        } catch {
+            dispatch({
+                type: TEAM_INFO_FAIL,
+            });
         }
     };
 
 export const teamActions = {
     createNewTeam,
-    getTeamToEdit,
+    updateTeam,
 };
