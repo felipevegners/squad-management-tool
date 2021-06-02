@@ -17,6 +17,7 @@ const GlobalStyles = createGlobalStyle`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         box-sizing: border-box;
+        color: #2b2b2b;
         }
 
     code {
