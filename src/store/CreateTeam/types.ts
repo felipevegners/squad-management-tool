@@ -5,6 +5,7 @@ export const TEAM_INFO_SUCCESS = 'TEAM_INFO_SUCCESS';
 export const TEAM_INFO_FAIL = 'TEAM_INFO_FAIL';
 export const TEAM_INFO_UPDATE_LOADING = 'TEAM_INFO_UPDATE_LOADING';
 export const TEAM_INFO_UPDATE_SUCCESS = 'TEAM_INFO_UPDATE_SUCCESS';
+export const TEAM_DELETE_SUCCESS = 'TEAM_DELETE_SUCCESS';
 
 // TEAM INFORMATION TYPES
 export interface ITeamInfo {
@@ -37,10 +38,15 @@ export interface ITeamInfoUptadeSuccess {
     type: typeof TEAM_INFO_UPDATE_SUCCESS;
     payload: ITeamInfo;
 }
+export interface ITeamDeleteSuccess {
+    type: typeof TEAM_DELETE_SUCCESS;
+    payload: ITeamInfo['id'];
+}
 
 export type CreateTeamDispathTypes =
     | ITeamInfoLoading
     | ITeamInfoFail
     | ITeamInfoSuccess
     | ITeamInfoUptadeLoading
-    | ITeamInfoUptadeSuccess;
+    | ITeamInfoUptadeSuccess
+    | ITeamDeleteSuccess;

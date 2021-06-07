@@ -16,3 +16,9 @@ export const updateTeam = (
         }
     });
 };
+export const deleteTeam = (
+    state: ITeamInfo[],
+    payload: number
+): ITeamInfo[] => {
+    return state.filter(({ id }) => id !== payload);
+};

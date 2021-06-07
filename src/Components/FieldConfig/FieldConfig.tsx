@@ -21,8 +21,6 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
     const [finalConfig, setFinalConfig] = useState<Record<string, any>>({});
     const [editConfig, setEditConfig] = useState(initialState());
 
-    console.log('final config --->', finalConfig);
-
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleDrop = (e: any): void => {
         e.preventDefault();

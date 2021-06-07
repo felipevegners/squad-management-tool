@@ -6,8 +6,9 @@ import {
     TEAM_INFO_SUCCESS,
     TEAM_INFO_UPDATE_LOADING,
     TEAM_INFO_UPDATE_SUCCESS,
+    TEAM_DELETE_SUCCESS,
 } from './types';
-import { updateTeam } from './utils';
+import { deleteTeam, updateTeam } from './utils';
 
 interface IDefaultState {
     id?: number;
@@ -56,6 +57,11 @@ const teamInfoReducer = (
             return {
                 loading: false,
                 teams: updateTeam(state.teams, action.payload),
+            };
+        case TEAM_DELETE_SUCCESS:
+            return {
+                loading: false,
+                teams: deleteTeam(state.teams, action.payload),
             };
         default:
             return state;

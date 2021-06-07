@@ -10,13 +10,87 @@ export const TableContainer = styled.div`
 `;
 
 export const TableHead = styled.div`
-    padding: 12px 0;
+    padding: 6px 0;
     margin-bottom: 6px;
     display: grid;
-    grid-template-columns: 2fr 3fr 1fr;
+    grid-template-columns: 2fr 3fr;
     width: 100%;
     border-bottom: 1px solid ${Colors.lightGray};
+
+    && .table-head-title {
+        padding: 8px 12px;
+
+        &:first-of-type {
+            border-right: 1px solid ${Colors.lightGray};
+        }
+    }
 `;
+
+export const SortIconCtn = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
+export const SortUp = styled.div`
+    position: relative;
+    display: flex;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 1px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid ${Colors.mediumGray};
+    }
+
+    &:hover {
+        &:before {
+            border-bottom-color: ${Colors.black};
+        }
+    }
+
+    &.selected {
+        &:before {
+            border-bottom-color: ${Colors.black};
+        }
+    }
+`;
+
+export const SortDown = styled.div`
+    position: relative;
+    display: flex;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: 2px;
+        left: 1px;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid ${Colors.mediumGray};
+    }
+
+    &:hover {
+        &:before {
+            border-top-color: ${Colors.black};
+        }
+    }
+
+    &.selected {
+        &:before {
+            border-top-color: ${Colors.black};
+        }
+    }
+`;
+
 export const TableBody = styled.div``;
 
 export const TableRow = styled.div`
@@ -28,7 +102,11 @@ export const TableRow = styled.div`
 
 export const TableRowContent = styled.div`
     display: grid;
-    grid-template-columns: 2fr 3fr 1fr;
+    grid-template-columns: 2fr 3fr;
+
+    & .icons-container {
+        display: flex;
+    }
 
     & .icons {
         width: 18px;
@@ -95,9 +173,8 @@ export const Icon = styled.div`
     }
 `;
 export const TableColumn = styled.div`
-    padding: 16px 8px;
+    padding: 16px 12px;
     display: flex;
-    &.divisorR {
-        border-right: 1px solid ${Colors.baseHover};
-    }
+    justify-content: space-between;
+    align-items: center;
 `;

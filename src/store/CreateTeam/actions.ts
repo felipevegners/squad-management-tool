@@ -7,6 +7,7 @@ import {
     TEAM_INFO_SUCCESS,
     TEAM_INFO_UPDATE_LOADING,
     TEAM_INFO_UPDATE_SUCCESS,
+    TEAM_DELETE_SUCCESS,
     ITeamInfo,
 } from './types';
 
@@ -47,7 +48,23 @@ const updateTeam =
         }
     };
 
+const deleteTeam =
+    (id: ITeamInfo['id']) =>
+    (dispatch: Dispatch<CreateTeamDispathTypes>): void => {
+        try {
+            dispatch({
+                type: TEAM_DELETE_SUCCESS,
+                payload: id,
+            });
+        } catch {
+            dispatch({
+                type: TEAM_INFO_FAIL,
+            });
+        }
+    };
+
 export const teamActions = {
     createNewTeam,
     updateTeam,
+    deleteTeam,
 };
