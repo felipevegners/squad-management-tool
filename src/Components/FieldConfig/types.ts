@@ -5,12 +5,13 @@ export interface IFormation {
             empty: boolean;
             initials: string;
             photo: string;
+            age: number;
         }
     ];
 }
 
 export interface IGetConfig {
-    getConfig(params: any): void;
-    config: any;
-    lines: any;
+    getConfig(params): void;
+    config: string;
+    lines: IFormation[];
 }

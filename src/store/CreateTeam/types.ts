@@ -17,6 +17,7 @@ export interface ITeamInfo {
     tags: string[];
     lines: IFormation[];
     configuration: string;
+    avAge: string;
 }
 
 export interface ITeamInfoLoading {

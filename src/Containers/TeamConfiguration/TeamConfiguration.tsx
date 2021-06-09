@@ -41,6 +41,7 @@ const TeamConfiguration: React.FC<TeamConfiguration> = () => {
             tags: [],
             configuration: '',
             lines: [],
+            avAge: '',
         };
     };
 
@@ -100,6 +101,7 @@ const TeamConfiguration: React.FC<TeamConfiguration> = () => {
             ...teamConfig,
             configuration: config.configuration,
             lines: config.lines,
+            avAge: config.avAge,
         });
     };
 

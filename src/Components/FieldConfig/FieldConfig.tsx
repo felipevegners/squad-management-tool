@@ -5,9 +5,8 @@ import { buildPlayers } from '../../helpers';
 import positions from '../../helpers/data/positions';
 
 import * as S from './FieldConfig.styles';
-import { IFormation, IGetConfig } from './types';
+import { IGetConfig } from './types';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
     const initialState = () => {
         if (config && lines) {
@@ -15,11 +14,15 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
                 configuration: config,
                 lines: lines,
             };
+        } else {
+            return {
+                configuration: '',
+                lines: [],
+            };
         }
     };
-    const [fieldConfig, setFieldConfig] = useState<IFormation[]>([]);
-    const [finalConfig, setFinalConfig] = useState<Record<string, any>>({});
-    const [editConfig, setEditConfig] = useState(initialState());
+    const [finalConfig, setFinalConfig] = useState(initialState());
+    const [ages, setAges] = useState([]);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const handleDrop = (e: any): void => {
@@ -27,9 +30,10 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
 
         const data = JSON.parse(e.dataTransfer.getData('player'));
         const playerPosition = e.target.id;
+        setAges([...ages, data.age]);
 
-        for (let i = 0; i < fieldConfig.length; i++) {
-            const obj = fieldConfig[i];
+        for (let i = 0; i < finalConfig.lines.length; i++) {
+            const obj = finalConfig.lines[i];
             const idx = obj.players.findIndex(
                 (x) => x.position === playerPosition
             );
@@ -38,10 +42,19 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
                 obj.players[idx].empty = false;
                 obj.players[idx].initials = data.initials;
                 obj.players[idx].photo = data.photo;
+                obj.players[idx].age = data.age;
             }
         }
-        setFinalConfig({ ...finalConfig, lines: fieldConfig });
-        getConfig({ ...finalConfig, lines: fieldConfig });
+
+        const avAge = (ages.reduce((t, n) => t + n, 0) / ages.length).toFixed(
+            2
+        );
+        setFinalConfig({ ...finalConfig, lines: finalConfig.lines });
+        getConfig({
+            ...finalConfig,
+            lines: finalConfig.lines,
+            avAge: avAge,
+        });
     };
 
     const handleDragOver = (e: React.DragEvent<HTMLElement>): void => {
@@ -73,9 +86,11 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
                 },
             ],
         });
-        setEditConfig({ configuration: e.target.value, lines: finalLine });
-        setFieldConfig(finalLine);
-        setFinalConfig({ ...finalConfig, configuration: e.target.value });
+        setFinalConfig({
+            ...finalConfig,
+            configuration: e.target.value,
+            lines: finalLine,
+        });
         getConfig({
             configuration: e.target.value,
             lines: finalLine,
@@ -88,7 +103,7 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
                 <S.FormationLabel>Formation</S.FormationLabel>
                 <S.FormationSelect
                     onChange={handleFormation}
-                    value={editConfig?.configuration}
+                    value={finalConfig.configuration}
                 >
                     <option>Select formation</option>
                     {positions
@@ -101,8 +116,8 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
                 </S.FormationSelect>
             </S.FormationSelectContainer>
             <S.Field>
-                {editConfig
-                    ? editConfig.lines.map((config: any, i: number) => (
+                {finalConfig
+                    ? finalConfig.lines.map((config: any, i: number) => (
                           <S.LineContainer key={i}>
                               {config.players.map((player: any, i: number) => (
                                   <S.Position
@@ -118,22 +133,7 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
                               ))}
                           </S.LineContainer>
                       ))
-                    : fieldConfig.map((config: any, i: number) => (
-                          <S.LineContainer key={i}>
-                              {config.players.map((player: any, i: number) => (
-                                  <S.Position
-                                      key={i}
-                                      onDrop={handleDrop}
-                                      onDragOver={handleDragOver}
-                                      className={`${
-                                          player.empty ? 'empty' : 'occupied'
-                                      }`}
-                                      photo={player.photo ? player.photo : ''}
-                                      id={player.position}
-                                  />
-                              ))}
-                          </S.LineContainer>
-                      ))}
+                    : ''}
             </S.Field>
         </S.MainContainer>
     );
