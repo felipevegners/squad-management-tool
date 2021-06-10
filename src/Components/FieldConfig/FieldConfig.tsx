@@ -117,8 +117,6 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
         });
     };
 
-    console.log('final', finalConfig);
-
     return (
         <S.MainContainer>
             <S.FormationSelectContainer>

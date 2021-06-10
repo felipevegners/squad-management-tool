@@ -9,6 +9,7 @@ import {
 interface IDefaultState {
     loading: boolean;
     player?: PlayerType[];
+    results?: number;
 }
 
 const defaultState: IDefaultState = {
@@ -31,7 +32,8 @@ const playerReducer = (
         case PLAYER_SUCCESS:
             return {
                 loading: false,
-                player: action.payload,
+                player: action.payload.response,
+                results: action.payload.results,
             };
         default:
             return state;
@@ -39,27 +41,3 @@ const playerReducer = (
 };
 
 export default playerReducer;
-
-// const INITIAL_STATE = [
-//     {
-//         id: '1',
-//         name: 'Felipe Vegners',
-//         age: '35',
-//         position: 'attack',
-//         picture: './barretos/img.jpg',
-//     },
-//     {
-//         id: '2',
-//         name: 'Renato Barretos',
-//         age: '27',
-//         position: 'defense',
-//         picture: './barretos/img.jpg',
-//     },
-//     {
-//         id: '3',
-//         name: 'Ronaldo Cristiano',
-//         age: '30',
-//         position: 'attack',
-//         picture: './barretos/img.jpg',
-//     },
-// ];

@@ -6,21 +6,6 @@ import {
     PLAYER_SUCCESS,
 } from './types';
 
-// interface IGetPlayers {
-//     age: number;
-//     birth: Record<string, string>;
-//     firstname: string;
-//     height: string;
-//     id: number;
-//     injuried: boolean;
-//     lastname: string;
-//     name: string;
-//     nationality: string;
-//     photo: string;
-//     weight: string;
-//     statistics: Record<string, string>;
-// }
-
 import { playerService } from '../Services/Player.services';
 const getPlayer =
     (name: string) =>

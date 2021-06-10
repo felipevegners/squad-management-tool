@@ -1,7 +1,6 @@
 export const PLAYER_LOADING = 'PLAYER_LOADING';
 export const PLAYER_FAIL = 'PLAYER_FAIL';
 export const PLAYER_SUCCESS = 'PLAYER_SUCCESS';
-
 export interface PlayerType {
     player: {
         id: number;
@@ -22,7 +21,8 @@ export interface IPlayerFail {
 
 export interface IPlayerSuccess {
     type: typeof PLAYER_SUCCESS;
-    payload: PlayerType[];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    payload: any;
 }
 
 export type PlayerDispathTypes = IPlayerLoading | IPlayerFail | IPlayerSuccess;

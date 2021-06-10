@@ -14,7 +14,7 @@ const getPlayers = async (name: string): Promise<any> => {
         const res = await api.get(
             `https://v3.football.api-sports.io/players?league=2&search=${name}`
         );
-        return res.data.response;
+        return res.data;
     } catch (e) {
         console.log(e);
     }

@@ -18,7 +18,6 @@ const SearchPlayer = (): JSX.Element => {
 
     const handleSearch = useDebouncedCallback((query: string) => {
         if (query.length > 3) {
-            console.log('search query --> ', name);
             dispatch(playerActions.getPlayer(name));
         }
     }, 500);

@@ -30,5 +30,6 @@ export const StyledInput = styled.input`
 
     &:focus {
         box-shadow: unset;
+        outline: none;
     }
 `;
