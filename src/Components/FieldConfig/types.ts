@@ -1,11 +1,13 @@
 export interface IFormation {
     players: [
         {
-            position: string;
             empty: boolean;
+            name: string;
             initials: string;
+            position: string;
             photo: string;
             age: number;
+            nationality: string;
         }
     ];
 }

@@ -126,7 +126,6 @@ export const Position = styled.div<{ photo: string }>`
         background: url('${(props) => props.photo}') center/contain no-repeat;
         border: 2px solid ${Colors.white};
         border-radius: 50%;
-        z-index: 9999;
 
         &:before {
             content: '';
@@ -136,6 +135,51 @@ export const Position = styled.div<{ photo: string }>`
             border-radius: 100%;
             border: 2px dotted ${Colors.white};
             opacity: 0.6;
+        }
+
+        & > .player-info {
+            display: none;
+            position: absolute;
+            top: 10px;
+            left: calc(100% + 20px);
+            padding: 10px;
+            width: 150px;
+            border-radius: 6px;
+            background-color: ${Colors.black};
+            color: ${Colors.white};
+            font-size: 12px;
+            z-index: 9999;
+
+            & > p {
+                margin-bottom: 8px;
+            }
+
+            & > button {
+                padding: 6px;
+                width: 100%;
+                background-color: ${Colors.red};
+                color: ${Colors.white};
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            &:before {
+                content: '';
+                position: absolute;
+                left: -20px;
+                border-bottom: 8px solid transparent;
+                border-left: 10px solid transparent;
+                border-right: 10px solid ${Colors.black};
+                border-top: 8px solid transparent;
+            }
+        }
+
+        &:hover {
+            cursor: pointer;
+            & > .player-info {
+                display: block;
+            }
         }
     }
 

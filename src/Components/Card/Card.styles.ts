@@ -23,5 +23,5 @@ export const Title = styled.h2`
 `;
 
 export const Content = styled.div`
-    padding: 12px 22px 30px 22px;
+    padding: 22px 22px 30px 22px;
 `;

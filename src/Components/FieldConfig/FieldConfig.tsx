@@ -40,14 +40,16 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
 
             if (idx !== -1) {
                 obj.players[idx].empty = false;
+                obj.players[idx].name = data.name;
                 obj.players[idx].initials = data.initials;
                 obj.players[idx].photo = data.photo;
                 obj.players[idx].age = data.age;
+                obj.players[idx].nationality = data.nationality;
             }
         }
 
         const avAge = (ages.reduce((t, n) => t + n, 0) / ages.length).toFixed(
-            2
+            1
         );
         setFinalConfig({ ...finalConfig, lines: finalConfig.lines });
         getConfig({
@@ -55,6 +57,24 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
             lines: finalConfig.lines,
             avAge: avAge,
         });
+    };
+
+    const handleRemovePlayer = (e: any, position: string): void => {
+        e.preventDefault();
+        for (let i = 0; i < finalConfig.lines.length; i++) {
+            const obj = finalConfig.lines[i];
+            const idx = obj.players.findIndex((x) => x.position === position);
+
+            if (idx !== -1) {
+                obj.players[idx].empty = true;
+                obj.players[idx].name = '';
+                obj.players[idx].initials = '';
+                obj.players[idx].photo = '';
+                obj.players[idx].age = 0;
+                obj.players[idx].nationality = '';
+            }
+        }
+        setFinalConfig({ ...finalConfig, lines: finalConfig.lines });
     };
 
     const handleDragOver = (e: React.DragEvent<HTMLElement>): void => {
@@ -97,6 +117,8 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
         });
     };
 
+    console.log('final', finalConfig);
+
     return (
         <S.MainContainer>
             <S.FormationSelectContainer>
@@ -129,7 +151,38 @@ const FieldConfig = ({ getConfig, config, lines }: IGetConfig): JSX.Element => {
                                       }`}
                                       photo={player.photo ? player.photo : ''}
                                       id={player.position}
-                                  />
+                                  >
+                                      {!player.empty && (
+                                          <div className="player-info">
+                                              <p>
+                                                  <strong>Name: </strong>{' '}
+                                                  {player.name
+                                                      ? player.name
+                                                      : ''}
+                                              </p>
+                                              <p>
+                                                  <strong>Age: </strong>{' '}
+                                                  {player.age ? player.age : ''}
+                                              </p>
+                                              <p>
+                                                  <strong>Nationality: </strong>{' '}
+                                                  {player.nationality
+                                                      ? player.nationality
+                                                      : ''}
+                                              </p>
+                                              <button
+                                                  onClick={(e) =>
+                                                      handleRemovePlayer(
+                                                          e,
+                                                          player.position
+                                                      )
+                                                  }
+                                              >
+                                                  remove
+                                              </button>
+                                          </div>
+                                      )}
+                                  </S.Position>
                               ))}
                           </S.LineContainer>
                       ))
